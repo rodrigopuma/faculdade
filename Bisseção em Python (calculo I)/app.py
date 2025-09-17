@@ -13,13 +13,15 @@ def calcular_funcao_str(x: float, f_x: str):
 
 def calcular_bissecao(a: float,
                       b: float,
-                      FX: str):
+                      FX: str,
+                      criterio_parada: float):
     """Calcula a bisseção da função baseado no intervalo do ponto a ao ponto b
     A multiplicação dos 2 tem de resultar em um número negativo
 
     Args:
         a (float): Ponto a
         b (float): Ponto b
+        criterio_parada (float): Criterio de parada para comparação da imagem da media
     """
     ax = str(a) # transformando o x em a
     bx = str(b)
@@ -31,12 +33,12 @@ def calcular_bissecao(a: float,
     if imagem_a * imagem_b > 0:
         return "Não é possível calcular a raiz dessa função, pelo método da bisseção."
     else:
-        k = 0 # criterio de parada
         media_xk = (a + b) / 2 # media de A e B
+        str_f_xk = transformar_funcao(media_xk, FX)
+        
+        imagem_media_xk = calcular_funcao_str(media_xk, str_f_xk)
 
-        while not k / media_xk < 0.01:
-            if k == 10: # teste
-                break # teste
+        while imagem_media_xk < criterio_parada:
             media_xk = (a + b) / 2
             str_f_xk = transformar_funcao(media_xk, FX)
             imagem_media_xk = calcular_funcao_str(media_xk, str_f_xk)
@@ -45,6 +47,5 @@ def calcular_bissecao(a: float,
                 b = media_xk # logo b <- xk
             elif imagem_b * imagem_media_xk < 0: # então: os sinais são diferentes
                 a = media_xk
-            k += 1
-        return media_xk 
-            
+            print(f"[{a}, {b}]")
+        return media_xk
