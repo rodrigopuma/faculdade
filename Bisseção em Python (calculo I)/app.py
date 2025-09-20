@@ -71,4 +71,4 @@ Atualizamos o \033[37m{"a" if a == media_xk else "b"} <- {media_xk}\033[m
             imagem_media_xk = imagem_media_xk * -1 if imagem_media_xk < 0 else imagem_media_xk
         return media_xk
 
-calcular_bissecao(1,2,"x**3-x-2",0.00001)
+# calcular_bissecao(1,2,"x**3-x-2",0.00001)
