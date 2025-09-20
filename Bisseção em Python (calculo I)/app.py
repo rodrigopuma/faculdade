@@ -1,3 +1,5 @@
+from time import sleep
+
 def transformar_funcao(var, func: str):
     var = str(var)
     func = func.replace('x', var)
@@ -29,6 +31,7 @@ def calcular_bissecao(a: float,
     str_f_b = transformar_funcao(bx, FX)
     imagem_a = calcular_funcao_str(ax, str_f_a) # float(f_a)
     imagem_b = calcular_funcao_str(bx, str_f_b) # float(f_b)
+    iteracao = 1
 
     if imagem_a * imagem_b > 0:
         return "Não é possível calcular a raiz dessa função, pelo método da bisseção."
@@ -38,7 +41,19 @@ def calcular_bissecao(a: float,
         
         imagem_media_xk = calcular_funcao_str(media_xk, str_f_xk)
 
-        while imagem_media_xk < criterio_parada:
+        sleep(0.7)
+        
+        print(f"""
+\033[32ma = {a:.8f}\033[m, \033[33mb = {b:.8f}\033[m
+
+\033[1;34mIteração {iteracao}:\033[m intervalo [\033[32m{a}\033[m, \033[33m{b}\033[m]],
+\033[35mmedia = {media_xk}\033[m, \033[36mf(media) = {imagem_media_xk}\033[m
+Atualizamos o \033[37m{"a" if a == media_xk else "b"} <- {media_xk}\033[m
+""")
+        imagem_media_xk = imagem_media_xk * -1 if imagem_media_xk < 0 else imagem_media_xk
+
+        while imagem_media_xk > criterio_parada:
+            iteracao += 1
             media_xk = (a + b) / 2
             str_f_xk = transformar_funcao(media_xk, FX)
             imagem_media_xk = calcular_funcao_str(media_xk, str_f_xk)
@@ -47,5 +62,13 @@ def calcular_bissecao(a: float,
                 b = media_xk # logo b <- xk
             elif imagem_b * imagem_media_xk < 0: # então: os sinais são diferentes
                 a = media_xk
-            print(f"[{a}, {b}]")
+            sleep(0.4)
+            print(f"""
+\033[1;34mIteração {iteracao}:\033[m intervalo [\033[32m{a}\033[m, \033[33m{b}\033[m]],
+\033[35mmedia = {media_xk}\033[m, \033[36mf(media) = {imagem_media_xk}\033[m
+Atualizamos o \033[37m{"a" if a == media_xk else "b"} <- {media_xk}\033[m
+""")
+            imagem_media_xk = imagem_media_xk * -1 if imagem_media_xk < 0 else imagem_media_xk
         return media_xk
+
+calcular_bissecao(1,2,"x**3-x-2",0.00001)

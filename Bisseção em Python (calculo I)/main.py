@@ -15,11 +15,11 @@ def main():
 [%]  = Módulo (Resto da divisão)
 [**] = Exponenciação
 [()] = Ordem de Precedência
+[x]  = Variavel de uso obrigatório
 ''')
         f_x = input('Agora digite a sua função baseado nesses operadores e sem o f(x) (Apenas a expressão): ')
     bissecao = calcular_bissecao(a, b, f_x, precisao)
     return bissecao
 
 if __name__ == '__main__':
-    run = main()
-    print(run)
+    print(main())
